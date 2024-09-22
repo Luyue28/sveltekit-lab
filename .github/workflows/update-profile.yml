@@ -1,4 +1,4 @@
-name: Update GitHub Profile Page
+name: Update Profile
 
 on:
   push:
@@ -13,22 +13,23 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Check current branch
-      run: git branch
-
     - name: Set up Git
       run: |
         git config --global user.name "Your Name"
         git config --global user.email "zhan0067@hz.nl"
 
+    - name: Debug changes
+      run: git status
+
     - name: Update README
       run: |
-        echo "New content" >> README.md
+        echo "Updated on $(date)" >> README.md
 
-    - name: Add and commit changes
+    - name: Add changes
       run: |
         git add README.md
         git commit -m "Update README with new content" || echo "No changes to commit"
 
     - name: Push changes
-      run: git push origin main
+      run: |
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Luyue28/sveltekit-lab.git main
