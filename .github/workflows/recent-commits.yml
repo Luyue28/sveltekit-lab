@@ -19,3 +19,12 @@ jobs:
           github-username: 'Luyue28'
           user-email: 'zhan0067@hz.nl'
           readme-file: 'README.md'
+          
+      - name: Push changes
+        run: |
+          git config --global user.name "Luyue28"
+          git config --global user.email "zhan0067@hz.nl"
+          git checkout main
+          git add README.md
+          git commit -m "Update README with new content"
+          git push origin main
