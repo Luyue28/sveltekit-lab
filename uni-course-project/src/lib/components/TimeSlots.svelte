@@ -16,7 +16,6 @@
                 throw new Error('Failed to fetch data'); // 如果请求失败，抛出错误
             }
             data = await response.json(); // 将响应转换为 JSON 并存储
-            console.log(data);
         } catch(err) {
             error = err.message; // 捕获错误信息
         } finally {

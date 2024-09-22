@@ -1,7 +1,12 @@
 <script>
+    // import { setContext } from "svelte";
     import TimeSlots from "$lib/components/TimeSlots.svelte";
     import Client from "$lib/components/Client.svelte";
     import Clients from "$lib/components/Clients.svelte";
+
+    // setContext('apiReference', {
+	// 	mainUrl: 'http://localhost:3015/api/v1/'
+	// });
 </script>
 
 <div class="container w-full mx-auto">
