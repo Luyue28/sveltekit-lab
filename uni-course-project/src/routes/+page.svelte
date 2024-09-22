@@ -1,6 +1,7 @@
 <script>
-	import Example from '$lib/components/Example.svelte';
-
+    import TimeSlots from "$lib/components/TimeSlots.svelte";
+    import Client from "$lib/components/Client.svelte";
+    import Clients from "$lib/components/Clients.svelte";
 </script>
 
 <div class="container w-full mx-auto">
@@ -11,10 +12,10 @@
     </section>
     <section class="flex flex-col lg:flex-row mt-5">
         <div class="basis-4/6 bg-gray-100 rounded-lg p-10 lg:mr-8">
-            Schedule
+            <TimeSlots />
         </div>
         <div class="basis-2/6 bg-gray-100 rounded-lg p-10 lg:mr-8">
-            Details
+            <Client />
         </div>
     </section>
 </div>
@@ -27,7 +28,7 @@
 	</section>
     <section class="flex flex-col lg:flex-row mt-5">
         <div class="basis-4/6 bg-gray-100 rounded-lg p-10 lg:mr-8">
-            All my clients
+            <Clients />
         </div>
     </section>
 </div>
