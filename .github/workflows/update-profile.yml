@@ -10,26 +10,27 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Git
-      run: |
-        git config --global user.name "Luyue28"
-        git config --global user.email "zhan0067@hz.nl"
+      - name: Set up Git
+        run: |
+          git config --global user.name "Luyue28"
+          git config --global user.email "zhan0067@hz.nl"
 
-    - name: Debug changes
-      run: git status
+      - name: Debug changes
+        run: git status
 
-    - name: Update README
-      run: |
-        echo "Updated on $(date)" >> README.md
+      - name: Update README
+        run: |
+          echo "Updated on $(date)" >> README.md
 
-    - name: Add changes
-      run: |
-        git add README.md
-        git commit -m "Update README with new content" || echo "No changes to commit"
+      - name: Add changes
+        run: |
+          git add README.md
+          git commit -m "Update README with new content" || echo "No changes to commit"
 
-    - name: Push changes
-      run: |
-        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Luyue28/Luyue28.git main
+      - name: Push changes to special repo
+        run: |
+          echo "Using API Token"
+          git push https://x-access-token:${{ secrets.API_TOKEN_GITHUB }}@github.com/Luyue28/Luyue28.git main
