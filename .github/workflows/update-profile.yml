@@ -15,7 +15,7 @@ jobs:
 
     - name: Set up Git
       run: |
-        git config --global user.name "Your Name"
+        git config --global user.name "Luyue28"
         git config --global user.email "zhan0067@hz.nl"
 
     - name: Debug changes
@@ -32,4 +32,4 @@ jobs:
 
     - name: Push changes
       run: |
-        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Luyue28/sveltekit-lab.git main
+        git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Luyue28/Luyue28.git main
