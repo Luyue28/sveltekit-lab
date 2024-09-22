@@ -8,7 +8,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-        
+
       - name: GADPP
         uses: umutphp/github-action-dynamic-profile-page@v5
         id: gadpp
@@ -22,6 +22,8 @@ jobs:
 
       - name: Push changes
         run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "zhan0067@hz.nl"
           git add README.md
-          git commit -m "Update README with new content"
+          git commit -m "Update README with new content" || echo "No changes to commit"
           git push origin main
