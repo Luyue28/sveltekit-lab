@@ -1,4 +1,4 @@
-name: Update Profile
+name: Update GitHub Profile Page
 
 on:
   push:
@@ -10,27 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Set up Git
-        run: |
-          git config --global user.name "Luyue28"
-          git config --global user.email "zhan0067@hz.nl"
-
-      - name: Debug changes
-        run: git status
 
       - name: Update README
         run: |
           echo "Updated on $(date)" >> README.md
 
-      - name: Add changes
+      - name: Commit changes
         run: |
+          git config --global user.name "Your Name"
+          git config --global user.email "zhan0067@hz.nl"
           git add README.md
-          git commit -m "Update README with new content" || echo "No changes to commit"
+          git commit -m "Update README with new commit info" || echo "No changes to commit"
 
-      - name: Push changes to special repo
+      - name: Push changes
+        env:
+          API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          echo "Using API Token"
           git push https://x-access-token:${{ secrets.API_TOKEN_GITHUB }}@github.com/Luyue28/Luyue28.git main
