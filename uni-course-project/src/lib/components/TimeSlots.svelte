@@ -2,43 +2,47 @@
     import { onMount } from "svelte";
     import TimeSlot from "./TimeSlot.svelte";
 
-    let data = []; // 用于存储从 API 返回的时间段数据。
-	let loading = true; // 表示数据是否正在加载，默认是 true。
-	let error = null; // 用于存储任何错误信息，默认是 null。
+    let data = [];
+	let loading = true;
+	let error = null;
 
     const apiUrl = 'http://localhost:3015/api/v1/timeslots/';
 
     // 当组件挂载时，发送异步请求
     onMount(async()=>{
         try {
-            const response = await fetch(apiUrl);  // 向 API 发送请求
-            if (!response.ok){
-                throw new Error('Failed to fetch data'); // 如果请求失败，抛出错误
-            }
-            data = await response.json(); // 将响应转换为 JSON 并存储
+            // first fetch ： { "meta": { "count": 16...}, "data": ["/timeslots/1", "/timeslots/2"...]}
+            const response = await fetch(apiUrl);
+            const urlArr = await response.json();
+
+            // second fetch ：  [Promise, Promise...]
+			const fetchEach = urlArr.data.map(async (url) => {
+				const res = await fetch(`http://localhost:3015/api/v1${url}`);
+				return res.json();
+			});
+
+			// wait for all fetches ： {id: 1, ...duration: 15}，{id: 2, ...duration: 15}...
+			data = await Promise.all(fetchEach);
         } catch(err) {
-            error = err.message; // 捕获错误信息
+            error = err.message;
         } finally {
-            loading = false; // 请求结束后，设为false
+            loading = false;
         }
     });
 </script>
 
-<!-- 显示加载状态 -->
 {#if loading}
 	<p>Loading...</p>
 {/if}
 
-<!-- 显示错误信息 -->
 {#if error}
 	<p>Error: {error}</p>
 {/if}
 
-<!-- 如果数据成功加载，循环渲染每个时间段 -->
 {#if !loading && !error}
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-		{#each data.data as item}
-			<TimeSlot timeslotUrl={item} />
+		{#each data as item}
+			<TimeSlot timeslot={item} />
 		{/each}
 	</div>
 {/if}

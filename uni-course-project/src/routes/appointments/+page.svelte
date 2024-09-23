@@ -19,8 +19,8 @@
             </tr>
         </thead>
         <tbody>
-            {#each data.items.data as item}
-            <Appointment appointmentUrl = {item}/>
+            {#each data.data as item}
+            <Appointment appointment = {item}/>
             {/each}
         </tbody>
     </table>

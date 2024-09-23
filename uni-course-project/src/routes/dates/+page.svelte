@@ -9,8 +9,8 @@
 
 <section>
     <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        {#each data.items.data as item}
-        <Date dateUrl = {item}/>
+        {#each data.data as item}
+        <Date date = {item}/>
         {/each}
     </div>
 </section>
