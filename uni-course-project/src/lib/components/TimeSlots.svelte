@@ -1,5 +1,5 @@
 <script>
-	import { timeslotStore } from './../../store.js';
+	import { appointmentStore, timeslotStore } from './../../store.js';
     import { onMount } from "svelte";
     import TimeSlot from "./TimeSlot.svelte";
 
@@ -44,7 +44,9 @@
 {#if !loading && !error}
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
 		{#each $timeslotStore as item}
-			<TimeSlot timeslot={item} />
+			<TimeSlot timeslot={item} 
+            appointment={$appointmentStore.find((appo) => parseInt(appo.timeslotId) === parseInt(item.id))}
+            />
 		{/each}
 	</div>
 {/if}

@@ -1,10 +1,16 @@
 <script>
-export let timeslot;
+    export let timeslot, appointment;
 </script>
 
 <div>
-    <ul class="flex flex-wrap justify-between bg-blue-100 p-3 rounded-lg">
-        <li class="mr-2">{timeslot.starttime}</li>
-        <li>---</li>
+    <ul class="flex w-full">
+        {#if !appointment}
+			<li class="bg-blue-200 p-3">{timeslot.starttime}</li>
+			<li class="bg-blue-100 p-3">---</li>
+		{/if}
+		{#if appointment}
+			<li class="bg-orange-200 p-3">{timeslot.starttime}</li>
+			<li class="bg-orange-100 p-3">{appointment.name}</li>
+		{/if}
     </ul>
 </div>
