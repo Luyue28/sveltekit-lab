@@ -1,4 +1,5 @@
 <script>
+	import { timeslotStore } from './../../store.js';
     import { onMount } from "svelte";
     import TimeSlot from "./TimeSlot.svelte";
 
@@ -23,6 +24,7 @@
 
 			// wait for all fetches ： {id: 1, ...duration: 15}，{id: 2, ...duration: 15}...
 			data = await Promise.all(fetchEach);
+            timeslotStore.set(data);
         } catch(err) {
             error = err.message;
         } finally {
@@ -41,7 +43,7 @@
 
 {#if !loading && !error}
 	<div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-		{#each data as item}
+		{#each $timeslotStore as item}
 			<TimeSlot timeslot={item} />
 		{/each}
 	</div>
