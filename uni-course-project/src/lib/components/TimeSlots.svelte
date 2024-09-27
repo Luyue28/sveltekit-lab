@@ -1,11 +1,11 @@
 <script>
-	import { onMount } from 'svelte';
+	import { getContext, onMount } from 'svelte';
 	import TimeSlot from './TimeSlot.svelte';
 
 	let timeslotAppointmentMatchedArr = [];
 
-	const timeslotsApiUrl = 'http://localhost:3015/api/v1/timeslots/';
-	const appointmentsOnOneDayApiUrl = 'http://localhost:3015/api/v1/appointments?day=248/';
+	const timeslotsApiUrl = `${getContext('apiReference').mainUrl}timeslots/`;
+	const appointmentsOnOneDayApiUrl = `${getContext('apiReference').mainUrl}appointments?day=270`;
 
 	const fetchData = async (url) => {
 		try {
@@ -65,7 +65,7 @@
                 };
             }
         });
-        console.log(timeslotAppointmentMatchedArr);
+        // console.log(timeslotAppointmentMatchedArr);
     });
 </script>
 
