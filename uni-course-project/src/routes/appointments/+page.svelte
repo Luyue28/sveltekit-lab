@@ -1,12 +1,5 @@
 <script>
-	import { onMount } from 'svelte';
     export let data;
-    import Appointment from '$lib/components/Appointment.svelte';
-    import { appointmentStore } from '../../store.js';
-
-    onMount(()=>{
-        appointmentStore.set(data.data);
-    });
 </script>
 
 <section>
@@ -25,8 +18,14 @@
             </tr>
         </thead>
         <tbody>
-            {#each $appointmentStore as item}
-            <Appointment appointment = {item}/>
+            {#each data.data as item}
+            <tr>
+                <td class="px-4 py-2"> {item.theDateId} </td>
+                <td class="px-4 py-2"> {item.timeslotId} </td>
+                <td class="px-4 py-2"> {item.name} </td>
+                <td class="px-4 py-2"> {item.breed} </td>
+                <td class="px-4 py-2"> {item.state} </td>
+            </tr>
             {/each}
         </tbody>
     </table>

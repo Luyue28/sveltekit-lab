@@ -1,18 +1,21 @@
-export const load = async (serverLoadEvent) => {
+const fetchData = async (url) => {
     try {
-        const {fetch} = serverLoadEvent;
+        const response = await fetch(url);
+        const items = await response.json();
+        return items;
+    } catch (error) {
+        return {error};
+    }
+}
 
-        // fetch appointment urls
-        const response = await fetch('http://localhost:3015/api/v1/appointments/');
-        const urlArr = await response.json();
-
-        // use the url to fetch again
-        const fetchEach = urlArr.data.map(async (url) => {
-            const res = await fetch(`http://localhost:3015/api/v1${url}`);
-            return res.json();
-        });
-
-        // wait for all fetches
+export const load = async () => {
+    // fetch appointment urls : {"meta": {"count": 5, "title...}, "data": ["/appointments/1", "/appointments/2...]}
+    const urlArr = await fetchData('http://localhost:3015/api/v1/appointments/');
+    const urlArrData = urlArr.data;
+    // use each url to fetch again
+    const fetchEach = urlArrData.map((url)=>fetchData(`http://localhost:3015/api/v1${url}`));
+    // wait for all promises to resolve
+    try {
         const data = await Promise.all(fetchEach);
         return {data};
     } catch (error) {
