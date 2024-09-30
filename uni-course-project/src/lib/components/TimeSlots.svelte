@@ -1,11 +1,12 @@
 <script>
 	import { getContext, onMount } from 'svelte';
 	import TimeSlot from './TimeSlot.svelte';
+    import { dateStore } from './stores/dateStore';
 
 	let timeslotAppointmentMatchedArr = [];
+    let currentDay;
 
 	const timeslotsApiUrl = `${getContext('apiReference').mainUrl}timeslots/`;
-	const appointmentsOnOneDayApiUrl = `${getContext('apiReference').mainUrl}appointments?day=270`;
 
 	const fetchData = async (url) => {
 		try {
@@ -34,9 +35,18 @@
     };
 
     onMount(async () => {
+		// update the selected current date
+		dateStore.subscribe((value) => {
+			currentDay = value.doy;
+            // console.log(currentDay);
+            getAllData(currentDay);
+		});
+	});
+
+    const getAllData = async (currentDay) => {
         // fetch timeslots urls and appoinments urls
         const timeslotsUrlArr = await fetchData(timeslotsApiUrl);
-        const appoinmentsUrlArrOnOneDay = await fetchData(appointmentsOnOneDayApiUrl);
+        const appoinmentsUrlArrOnOneDay = await fetchData(`http://localhost:3015/api/v1/appointments?day=${currentDay}`);
         // extract all the urls from the result (urls array)
         const timeslotsUrlArrData = timeslotsUrlArr.data;
         const appoinmentsUrlArrOnOneDayData = appoinmentsUrlArrOnOneDay.data;
@@ -66,7 +76,7 @@
             }
         });
         // console.log(timeslotAppointmentMatchedArr);
-    });
+    };
 </script>
 
 <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">

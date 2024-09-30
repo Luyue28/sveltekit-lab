@@ -1,4 +1,4 @@
-<script>
+<!-- <script>
 	import { onMount } from 'svelte';
     export let data;
     import Date from '$lib/components/Date.svelte';
@@ -14,4 +14,4 @@
         <Date date = {item}/>
         {/each}
     </div>
-</section>
+</section> -->
