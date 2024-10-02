@@ -2,8 +2,6 @@
 	import { onMount } from 'svelte';
 	import { dateStore } from './stores/dateStore.js';
 
-	let whichDOY;
-
 	const previousDay = () => {
 		dateStore.update((value) => {
 			value.doy--;
